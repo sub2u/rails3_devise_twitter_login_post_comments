@@ -1,0 +1,21 @@
+<div class="article_<%=article%>">
+      <blockquote>
+            <p>
+    <dl>
+    <dt><%=link_to   @comment.article.title, article %>  <span class="label label-info">  <%= @comment.article.user.name%></span><%if user_signed_in? &&  @comment.article.user==current_user%><%= link_to 'Destroy',  @comment.article, method: :delete, data: { confirm: 'Are you sure?' } %><%end%>
+    </dt>
+    <dd><%=  @comment.article.description %></dd>
+    </dl>
+</p>
+  <% @comment.article.comments.each do |comment|%>
+    <small><%=comment.description%><span class="label label-info">  <%=comment.user.name%></span></small>
+  <%end%>
+    <%if user_signed_in?%>
+    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo<%=article%>">
+  New Comment</button>
+  <div id="demo<%=article%>" class="collapse out">
+    <%= render :partial => 'comments/form',:locals=>{:article=> @comment.article.id} %>
+  </div>
+    <%end%>
+    </blockquote>
+    </div>

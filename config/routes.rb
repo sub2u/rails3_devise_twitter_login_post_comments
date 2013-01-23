@@ -1,16 +1,16 @@
 TwitterPostComments::Application.routes.draw do
 
-  resources :comments
+  resources :comments,:only => [:create,:destroy]
 
-  resources :articles
+  resources :articles,:only => [:index, :create, :destroy]
 
-  resources :authentications
+  resources :authentications,:only => [:create]
 
 match '/auth/:provider/callback' => 'authentications#create'
   authenticated :user do
-    root :to => 'home#index'
+    root :to => 'articles#index'
   end
-  root :to => "home#index"
+  root :to => "articles#index"
   devise_for :users
   resources :users
 end

@@ -1,0 +1,1 @@
+$('.article_<%=params["comment"]["article_id"]%>').html("<%= escape_javascript(render(:partial => "article_update", :locals=>{:article=>params["comment"]["article_id"]}))%>");

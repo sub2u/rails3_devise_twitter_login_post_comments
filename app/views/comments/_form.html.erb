@@ -1,13 +1,11 @@
-<%= simple_form_for(@comment) do |f| %>
+<%comment=Comment.new
+comment.article_id=article%>
+<%= simple_form_for(comment,:remote=>true) do |f| %>
   <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :article_id %>
-    <%= f.input :user_id %>
-    <%= f.input :description %>
-  </div>
-
-  <div class="form-actions">
+  <%=f.input :article_id,:label=>false, :input_html =>{ :style=>"display:none;"}%>
+    <%= f.input :description,:label=>"Add Comment", :input_html => { :rows => 1 } %>
     <%= f.button :submit %>
-  </div>
+
+
+
 <% end %>

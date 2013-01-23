@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122184657) do
+ActiveRecord::Schema.define(:version => 20130122192354) do
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -22,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20130122184657) do
     t.string   "destroy"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "article_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "roles", :force => true do |t|
@@ -49,15 +65,10 @@ ActiveRecord::Schema.define(:version => 20130122184657) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "name"
-    t.string   "twitter_handle"
-    t.string   "twitter_oauth_token"
-    t.string   "twitter_oauth_secret"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-  add_index "users", ["twitter_handle"], :name => "index_users_on_twitter_handle", :unique => true
-  add_index "users", ["twitter_oauth_token", "twitter_oauth_secret"], :name => "index_users_on_twitter_oauth_token_and_twitter_oauth_secret"
 
   create_table "users_roles", :id => false, :force => true do |t|
     t.integer "user_id"
