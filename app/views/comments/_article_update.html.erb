@@ -8,7 +8,11 @@
     </dl>
 </p>
   <% @comment.article.comments.each do |comment|%>
-    <small><%=comment.description%><span class="label label-info">  <%=comment.user.name%></span></small>
+    <small><%=comment.description%><span class="label label-info">  <%=comment.user.name%></span>
+       <%if comment.user==current_user%>
+      <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%end%>
+      </small>
   <%end%>
     <%if user_signed_in?%>
     <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo<%=article%>">

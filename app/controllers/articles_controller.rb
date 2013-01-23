@@ -41,7 +41,7 @@ end
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
     @article.destroy
 
     respond_to do |format|

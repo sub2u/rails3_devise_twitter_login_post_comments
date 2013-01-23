@@ -19,11 +19,11 @@ before_filter :authenticate_user!
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = current_user.comments.find(params[:id])
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to comments_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end
