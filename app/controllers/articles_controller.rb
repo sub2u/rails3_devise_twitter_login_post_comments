@@ -24,9 +24,11 @@ class ArticlesController < ApplicationController
       config.oauth_token = session[:twitter_token]
       config.oauth_token_secret = session[:twitter_secret]
     end
+begin
 client = Twitter::Client.new
-client.update('Hello, from Twitter Gem!')
-
+client.update(@article.title)
+rescue
+end
         format.html { redirect_to articles_path, notice: 'Article was successfully created.' }
         format.json { render json: @article, status: :created, location: @article }
       else
