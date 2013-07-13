@@ -6,10 +6,11 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  attr_accessible :name, :email, :password
+  attr_accessible :name, :email, :password, :reference_code, :refered_code, :password_confirmation
 has_many :authentications
 has_many :articles
 has_many :comments
+before_create :rand_ref_code
   def self.find_for_twitter_oauth(access_token, signed_in_resource=nil)
     data = access_token.extra.raw_info
     data.email='fake'+access_token.uid+'@test.com' if data.email.blank?
@@ -24,4 +25,9 @@ has_many :comments
     end
   end
 
+private
+
+  def rand_ref_code
+    self.reference_code = Array.new(8){[*'0'..'9', *'a'..'z', *'A'..'Z'].sample}.join
+  end
 end

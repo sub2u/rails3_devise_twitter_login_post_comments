@@ -100,4 +100,20 @@ describe User do
 
   end
 
+  describe "Reference Code" do
+    
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "should generate the reference code" do
+      @user.reference_code.should_not be_blank
+    end
+
+    it "should generate reference code of length 8" do
+      @user.reference_code.length.should == 8
+    end
+
+  end
+
 end
